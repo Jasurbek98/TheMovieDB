@@ -3,7 +3,9 @@ package com.example.themoviedb.presentation.ui.screens
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.themoviedb.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
 

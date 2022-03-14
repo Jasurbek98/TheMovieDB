@@ -9,8 +9,9 @@ import com.example.themoviedb.R
 import com.example.themoviedb.databinding.FragmentNavigationBinding
 import com.example.themoviedb.presentation.ui.adapters.ViewStateMovieAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class NavigationFragment : Fragment() {
     private var _binding: FragmentNavigationBinding? = null
     private val binding: FragmentNavigationBinding

@@ -1,7 +1,6 @@
 package com.example.themoviedb.domain.movies
 
-import com.example.themoviedb.data.remote.response.ResponsePopular
-import com.example.themoviedb.data.remote.response.ResponseUpcoming
+import com.example.themoviedb.data.remote.response.*
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -9,9 +8,13 @@ import kotlinx.coroutines.flow.Flow
  */
 interface MoviesRepository {
 
-    fun getPopularMovies(apiKey: String): Flow<Result<ResponsePopular>>
+    fun getPopularMovies(): Flow<Result<ResponsePopular>>
 
-    fun getTopRatedMovies(apiKey: String): Flow<Result<ResponsePopular>>
+    fun getTopRatedMovies(): Flow<Result<ResponsePopular>>
 
-    fun getUpcomingMovies(apiKey: String): Flow<Result<ResponseUpcoming>>
+    fun getUpcomingMovies(): Flow<Result<ResponseUpcoming>>
+
+    fun getMovieDetail(id: Int): Flow<Result<ResponseMovieDetails>>
+
+    fun getMovieActor(movieId: Int): Flow<Result<ResponseActors>>
 }

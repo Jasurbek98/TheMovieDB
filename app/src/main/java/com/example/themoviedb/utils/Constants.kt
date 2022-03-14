@@ -5,7 +5,9 @@ package com.example.themoviedb.utils
  **/
 
 
-const val BASE_URL = "https://api.themoviedb.org/3"    // original dm
+const val BASE_URL = "https://api.themoviedb.org/3/"    // original dm
+
+const val BASE_URL_FOR_IMAGE = "https://image.tmdb.org/t/p/w500"
 
 const val API_KEY = "457be4104dd351837e01aad43baddb18"
 const val ACCESS_TOKEN =

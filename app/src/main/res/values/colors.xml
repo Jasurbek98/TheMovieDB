@@ -10,9 +10,16 @@
 
     <color name="colorDarkBlue">#354557</color>
     <color name="colorWhiteSoft">#F4F5F7</color>
+    <color name="colorWhiteDark">#CBCCCD</color>
     <color name="stroke_back">#B3AFAF</color>
     <color name="transparent_a">#00000000</color>
 
+    <color name="colorGrey">#dddddd</color>
+    <color name="blue">#3C99DD</color>
+    <color name="project_done">#00C853</color>
 
 
+    <!--Background color-->
+    <color name="backgroundMainColor">#100E19</color>
+    <color name="smallTextColor">#7A7886</color>
 </resources>

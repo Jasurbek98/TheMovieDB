@@ -1,44 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/_90sdp"
-    android:layout_height="wrap_content"
-    android:background="?android:selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true">
+    android:layout_height="wrap_content">
+
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_150sdp"
+        android:background="?android:selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         app:cardCornerRadius="@dimen/_10sdp"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
         app:layout_constraintTop_toTopOf="parent">
 
-
-        <ImageView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/app_name"
-            android:scaleType="fitXY"
-            android:src="@drawable/scorpion" />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/movieImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitXY"
+                tools:src="@drawable/scorpion" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/isForAdult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@drawable/txt_bg"
+                android:padding="@dimen/_1sdp"
+                android:text="@string/young"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </com.google.android.material.card.MaterialCardView>
 
+
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/movieTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_regular"
         android:gravity="center"
         android:maxLines="1"
-        android:text="Scropion"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="@dimen/_10ssp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/cardLayout"
         app:layout_constraintStart_toStartOf="@id/cardLayout"
-        app:layout_constraintTop_toBottomOf="@id/cardLayout" />
+        app:layout_constraintTop_toBottomOf="@id/cardLayout"
+        tools:text="Scropion" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundMainColor"
     tools:context=".presentation.ui.screens.NavigationFragment">
 
     <com.google.android.material.tabs.TabLayout
@@ -19,7 +20,7 @@
         app:tabIconTint="@color/colorDarkBlue"
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/teal_700"
-        app:tabTextColor="@color/black">
+        app:tabTextColor="@color/white">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -41,6 +42,61 @@
 
     </com.google.android.material.tabs.TabLayout>
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_search_bar"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:background="@drawable/background_login_et_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tab_layout">
+
+        <ImageView
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_search_io"
+            app:layout_constraintBottom_toBottomOf="@+id/tab_relative_ll"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tab_relative_ll"
+            app:tint="@color/stroke_back" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:autofillHints="name"
+            android:background="@color/transparent_a"
+            android:hint="@string/search"
+            android:lines="1"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="@dimen/_13sdp" />
+
+        <ImageView
+            android:id="@+id/btn_cancel_search"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/app_name"
+            android:rotation="45"
+            android:src="@drawable/ic_add_plus"
+            app:layout_constraintBottom_toBottomOf="@+id/tab_relative_ll"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tab_relative_ll"
+            app:tint="@color/stroke_back" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
@@ -49,7 +105,7 @@
         android:background="#E6E9EF"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/ll_search_bar" />
 
 
     <androidx.viewpager2.widget.ViewPager2

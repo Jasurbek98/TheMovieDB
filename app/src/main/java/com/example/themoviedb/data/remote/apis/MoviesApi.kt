@@ -1,31 +1,41 @@
 package com.example.themoviedb.data.remote.apis
 
+import com.example.themoviedb.data.remote.response.ResponseActors
+import com.example.themoviedb.data.remote.response.ResponseMovieDetails
 import com.example.themoviedb.data.remote.response.ResponsePopular
 import com.example.themoviedb.data.remote.response.ResponseUpcoming
+import com.example.themoviedb.utils.API_KEY
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Path
+import retrofit2.http.*
 
 /**
  * Created by Jasurbek Kurganbayev 13/03/2022
  */
+
 interface MoviesApi {
 
-    //    @Headers("api-key: " + "PUT_YOUR_API_KEY")
-    @GET("movie/popular?api_key={api_key}")
-    fun getPopularMovies(
-        @Header("api_key") api_key: String,
-//        @Path("page") page: Int,
-    ): Response<ResponsePopular>
+    //    @Headers(API_KEY)
+    @GET("movie/popular")
+    suspend fun getPopularMovies(): Response<ResponsePopular>
 
 
-    @GET("movie/popular?api_key={api_key}")
-    fun getTopRatedMovies(@Header("api_key") api_key: String): Response<ResponsePopular>
+    @GET("movie/top_rated")
+    suspend fun getTopRatedMovies(): Response<ResponsePopular>
 
 
-    @GET("movie/popular?api_key={api_key}")
-    fun getUpcomingMovies(@Header("api_key") api_key: String): Response<ResponseUpcoming>
+    @GET("movie/upcoming")
+    suspend fun getUpcomingMovies(): Response<ResponseUpcoming>
+
+    @GET("movie/{id}")
+    suspend fun getMovie(
+        @Path("id") movieId: Int
+    ): Response<ResponseMovieDetails>
+
+
+    @GET("movie/{id}/credits")
+    suspend fun getMovieActors(
+        @Path("id") id: Int
+    ): Response<ResponseActors>
 
 
 }

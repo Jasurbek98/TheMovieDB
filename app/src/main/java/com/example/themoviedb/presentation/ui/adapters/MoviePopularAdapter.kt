@@ -1,5 +1,6 @@
 package com.example.themoviedb.presentation.ui.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -7,12 +8,21 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.themoviedb.data.remote.response.MovieItem
 import com.example.themoviedb.databinding.MovieItemBinding
+import com.example.themoviedb.utils.`typealias`.SingleBlock
+import com.example.themoviedb.utils.extensions.bindItem
+import com.example.themoviedb.utils.extensions.loadImageUri
+import com.example.themoviedb.utils.extensions.loadImageUrl
+import com.example.themoviedb.utils.extensions.loadImageUrlWithBaseUrl
+import com.example.themoviedb.utils.show
 
 /**
  * Created by Jasurbek Kurganbayev 13/03/2022
  */
 class MoviePopularAdapter :
     ListAdapter<MovieItem, MoviePopularAdapter.VH>(ITEM_FINISHED_IDEA_CALLBACK) {
+
+    private var listenerCallback: SingleBlock<MovieItem>? = null
+
 
     companion object {
         var ITEM_FINISHED_IDEA_CALLBACK = object : DiffUtil.ItemCallback<MovieItem>() {
@@ -38,11 +48,30 @@ class MoviePopularAdapter :
 
     )
 
-    override fun onBindViewHolder(holder: VH, position: Int) {
+    override fun onBindViewHolder(holder: VH, position: Int) = holder.bind()
 
+    fun setOnClickListener(block: SingleBlock<MovieItem>) {
+        listenerCallback = block
     }
 
     inner class VH(private val binding: MovieItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.apply {
+                movieImage.setOnClickListener {
+                    listenerCallback?.invoke(getItem(absoluteAdapterPosition))
+                }
+            }
+        }
 
+        fun bind() = bindItem {
+            val data = getItem(absoluteAdapterPosition)
+            binding.apply {
+                if (!data.adult!!) {
+                    isForAdult.show()
+                }
+                movieTitle.text = data.originalTitle
+                movieImage.loadImageUrlWithBaseUrl(data.posterPath!!)
+            }
+        }
     }
 }

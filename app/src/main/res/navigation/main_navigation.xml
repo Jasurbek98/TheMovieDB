@@ -9,5 +9,14 @@
         android:id="@+id/navigationFragment"
         android:name="com.example.themoviedb.presentation.ui.screens.NavigationFragment"
         android:label="fragment_navigation"
-        tools:layout="@layout/fragment_navigation" />
+        tools:layout="@layout/fragment_navigation">
+        <action
+            android:id="@+id/action_navigationFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.example.themoviedb.presentation.ui.screens.movie_details.MovieDetailFragment"
+        android:label="fragment_movie_detail"
+        tools:layout="@layout/fragment_movie_detail" />
 </navigation>

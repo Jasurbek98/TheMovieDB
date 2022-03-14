@@ -8,4 +8,7 @@
     <string name="upcoming">Upcoming</string>
     <string name="search">Search</string>
     <string name="connection_retry">No internet connection. Make sure Wi-Fi or cellular data is turned on, then try again.</string>
+    <string name="young">18+</string>
+    <string name="actors_and_creators">Actors and Creators</string>
+    <string name="languages">Languages:</string>
 </resources>

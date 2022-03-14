@@ -11,7 +11,7 @@ data class ResponsePopular(
     val totalPages: Int? = null,
 
     @field:SerializedName("results")
-    val results: List<MovieItem?>? = null,
+    val results: List<MovieItem>? = null,
 
     @field:SerializedName("total_results")
     val totalResults: Int? = null
