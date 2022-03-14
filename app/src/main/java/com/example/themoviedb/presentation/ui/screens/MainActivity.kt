@@ -1,4 +1,4 @@
-package com.example.themoviedb
+package com.example.themoviedb.presentation.ui.screens
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,4 +23,6 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         _binding = null
     }
+
+
 }

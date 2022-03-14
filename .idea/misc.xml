@@ -3,7 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/mrjas/AndroidStudioProjects/TheMovieDB/app/src/main/res/drawable/background_login_et_text.xml" value="0.2215" />
+        <entry key="..\:/Users/mrjas/AndroidStudioProjects/TheMovieDB/app/src/main/res/drawable/ic_add_plus.xml" value="0.236" />
+        <entry key="..\:/Users/mrjas/AndroidStudioProjects/TheMovieDB/app/src/main/res/drawable/ic_baseline_new.xml" value="0.2325" />
+        <entry key="..\:/Users/mrjas/AndroidStudioProjects/TheMovieDB/app/src/main/res/drawable/ic_baseline_upcoming.xml" value="0.2325" />
+        <entry key="..\:/Users/mrjas/AndroidStudioProjects/TheMovieDB/app/src/main/res/drawable/ic_search_io.xml" value="0.236" />
+        <entry key="..\:/Users/mrjas/AndroidStudioProjects/TheMovieDB/app/src/main/res/drawable/tab_background.xml" value="0.2325" />
+        <entry key="..\:/Users/mrjas/AndroidStudioProjects/TheMovieDB/app/src/main/res/drawable/tablayout_background.xml" value="0.2325" />
         <entry key="..\:/Users/mrjas/AndroidStudioProjects/TheMovieDB/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/mrjas/AndroidStudioProjects/TheMovieDB/app/src/main/res/layout/fragment_navigation.xml" value="0.1" />
+        <entry key="..\:/Users/mrjas/AndroidStudioProjects/TheMovieDB/app/src/main/res/layout/fragment_popular.xml" value="0.1" />
+        <entry key="..\:/Users/mrjas/AndroidStudioProjects/TheMovieDB/app/src/main/res/layout/fragment_top_rated.xml" value="0.1" />
+        <entry key="..\:/Users/mrjas/AndroidStudioProjects/TheMovieDB/app/src/main/res/layout/fragment_upcoming.xml" value="0.18819655521783182" />
+        <entry key="..\:/Users/mrjas/AndroidStudioProjects/TheMovieDB/app/src/main/res/layout/movie_item.xml" value="0.38333333333333336" />
       </map>
     </option>
   </component>
