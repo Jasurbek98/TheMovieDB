@@ -17,4 +17,8 @@ interface MoviesRepository {
     fun getMovieDetail(id: Int): Flow<Result<ResponseMovieDetails>>
 
     fun getMovieActor(movieId: Int): Flow<Result<ResponseActors>>
+
+    fun getActor(personId: Int): Flow<Result<ResponsePerson>>
+
+    fun getActorCredits(personId: Int): Flow<Result<ResponseActorCredits>>
 }

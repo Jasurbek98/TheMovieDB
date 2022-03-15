@@ -8,13 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.example.themoviedb.data.local.LocalStorage
 import com.example.themoviedb.data.remote.response.MovieItem
 import com.example.themoviedb.databinding.FragmentTopRatedBinding
 import com.example.themoviedb.presentation.ui.adapters.MoviePopularAdapter
+import com.example.themoviedb.presentation.ui.screens.NavigationFragmentDirections
 import com.example.themoviedb.presentation.viewmodels.top_rated_fragment_viewmodel.TopRatedViewModel
 import com.example.themoviedb.utils.gone
 import com.example.themoviedb.utils.show
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TopRatedFragment : Fragment() {
@@ -26,7 +30,10 @@ class TopRatedFragment : Fragment() {
     private val topRatedViewModel: TopRatedViewModel by viewModels()
 
 
-    private lateinit var moviePopularAdapter: MoviePopularAdapter
+    private var moviePopularAdapter = MoviePopularAdapter()
+
+    @Inject
+    lateinit var storage: LocalStorage
 
 
     override fun onCreateView(
@@ -56,7 +63,6 @@ class TopRatedFragment : Fragment() {
 
     private val popularMovieObserver = Observer<List<MovieItem>> { movieList ->
         if (movieList != null) {
-            moviePopularAdapter = MoviePopularAdapter()
             moviePopularAdapter.submitList(movieList)
             binding.topRatedMovieList.apply {
                 adapter = moviePopularAdapter
@@ -82,7 +88,10 @@ class TopRatedFragment : Fragment() {
 
 
     private fun initView() {
-
+        moviePopularAdapter.setOnClickListener {
+            storage.movieId = it.id!!
+            findNavController().navigate(NavigationFragmentDirections.actionNavigationFragmentToMovieDetailFragment())
+        }
 
     }
 

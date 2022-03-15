@@ -87,12 +87,7 @@ class PopularFragment : Fragment() {
 
 
     private fun initView() {
-//        moviePopularAdapter = MoviePopularAdapter()
-
         moviePopularAdapter.setOnClickListener {
-
-            Log.d("SSS", "setOnClickListener")
-
             storage.movieId = it.id!!
             findNavController().navigate(NavigationFragmentDirections.actionNavigationFragmentToMovieDetailFragment())
         }

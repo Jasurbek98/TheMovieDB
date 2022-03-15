@@ -29,6 +29,7 @@ class LocalStorage private constructor(context: Context) {
     var screenState: String by StringPreference(pref)
 
     var movieId: Int by IntPreference(pref, -1)
+    var actorId: Int by IntPreference(pref, -1)
 
 
 }

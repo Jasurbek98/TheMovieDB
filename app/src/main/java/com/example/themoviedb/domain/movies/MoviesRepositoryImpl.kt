@@ -2,10 +2,7 @@ package com.example.themoviedb.domain.movies
 
 import com.example.themoviedb.data.local.LocalStorage
 import com.example.themoviedb.data.remote.apis.MoviesApi
-import com.example.themoviedb.data.remote.response.ResponseActors
-import com.example.themoviedb.data.remote.response.ResponseMovieDetails
-import com.example.themoviedb.data.remote.response.ResponsePopular
-import com.example.themoviedb.data.remote.response.ResponseUpcoming
+import com.example.themoviedb.data.remote.response.*
 import com.example.themoviedb.utils.API_KEY
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -77,6 +74,32 @@ class MoviesRepositoryImpl @Inject constructor(
     override fun getMovieActor(movieId: Int): Flow<Result<ResponseActors>> = flow {
         try {
             val respone = moviesApi.getMovieActors(movieId)
+            if (respone.isSuccessful && respone.code() == 200) respone.body()?.let {
+                emit(Result.success(it))
+            } else {
+                emit(Result.failure(HttpException(respone)))
+            }
+        } catch (e: Exception) {
+            emit(Result.failure(e))
+        }
+    }
+
+    override fun getActor(personId: Int): Flow<Result<ResponsePerson>> = flow {
+        try {
+            val respone = moviesApi.getActor(personId)
+            if (respone.isSuccessful && respone.code() == 200) respone.body()?.let {
+                emit(Result.success(it))
+            } else {
+                emit(Result.failure(HttpException(respone)))
+            }
+        } catch (e: Exception) {
+            emit(Result.failure(e))
+        }
+    }
+
+    override fun getActorCredits(personId: Int): Flow<Result<ResponseActorCredits>> = flow {
+        try {
+            val respone = moviesApi.getActorCredits(personId)
             if (respone.isSuccessful && respone.code() == 200) respone.body()?.let {
                 emit(Result.success(it))
             } else {

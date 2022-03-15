@@ -1,9 +1,6 @@
 package com.example.themoviedb.data.remote.apis
 
-import com.example.themoviedb.data.remote.response.ResponseActors
-import com.example.themoviedb.data.remote.response.ResponseMovieDetails
-import com.example.themoviedb.data.remote.response.ResponsePopular
-import com.example.themoviedb.data.remote.response.ResponseUpcoming
+import com.example.themoviedb.data.remote.response.*
 import com.example.themoviedb.utils.API_KEY
 import retrofit2.Response
 import retrofit2.http.*
@@ -14,7 +11,6 @@ import retrofit2.http.*
 
 interface MoviesApi {
 
-    //    @Headers(API_KEY)
     @GET("movie/popular")
     suspend fun getPopularMovies(): Response<ResponsePopular>
 
@@ -26,6 +22,7 @@ interface MoviesApi {
     @GET("movie/upcoming")
     suspend fun getUpcomingMovies(): Response<ResponseUpcoming>
 
+
     @GET("movie/{id}")
     suspend fun getMovie(
         @Path("id") movieId: Int
@@ -36,6 +33,18 @@ interface MoviesApi {
     suspend fun getMovieActors(
         @Path("id") id: Int
     ): Response<ResponseActors>
+
+
+    @GET("person/{person_id}")
+    suspend fun getActor(
+        @Path("person_id") personId: Int
+    ): Response<ResponsePerson>
+
+
+    @GET("person/{person_id}/movie_credits")
+    suspend fun getActorCredits(
+        @Path("person_id") personId: Int
+    ): Response<ResponseActorCredits>
 
 
 }

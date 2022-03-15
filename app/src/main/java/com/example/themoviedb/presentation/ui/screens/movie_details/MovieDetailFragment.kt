@@ -90,7 +90,7 @@ class MovieDetailFragment : Fragment() {
     }
 
     private val movieActorsObserver = Observer<ResponseActors> { actorsResponse ->
-        Log.d("LLLL","${actorsResponse.toString()}")
+
         if (actorsResponse != null) {
             peopleAdapter.submitList(actorsResponse.cast)
             binding.actorsList.apply {
@@ -118,6 +118,11 @@ class MovieDetailFragment : Fragment() {
 
         binding.backArrow.setOnClickListener {
             findNavController().popBackStack()
+        }
+
+        peopleAdapter.setOnClickListener {
+            storage.actorId = it.id!!
+            findNavController().navigate(MovieDetailFragmentDirections.actionMovieDetailFragmentToActorDetailFragment())
         }
 
 
