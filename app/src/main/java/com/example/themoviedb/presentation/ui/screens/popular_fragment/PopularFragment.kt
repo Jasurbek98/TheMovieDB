@@ -61,6 +61,8 @@ class PopularFragment : Fragment() {
     }
 
     private val popularMovieObserver = Observer<List<MovieItem>> { movieList ->
+//        Log.d("TTT", "$movieList")
+
         if (movieList != null) {
             moviePopularAdapter.submitList(movieList)
         }

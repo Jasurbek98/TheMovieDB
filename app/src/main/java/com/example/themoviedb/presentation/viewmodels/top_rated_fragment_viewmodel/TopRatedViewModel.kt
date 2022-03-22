@@ -21,41 +21,50 @@ class TopRatedViewModel @Inject constructor(
     private val moviesRepository: MoviesRepository
 ) : ViewModel() {
 
-    private val _popularMovie = MutableLiveData<List<MovieItem>>()
-    val popularMovie: LiveData<List<MovieItem>> get() = _popularMovie
+    private var page = 1
 
-    private val _progressLiveData = MutableLiveData<Boolean>()
+
+    private val _topRatedMovie = MutableLiveData<List<MovieItem>>()
+    val topRatedMovie: LiveData<List<MovieItem>> get() = _topRatedMovie
+
+    private val _progressLiveData = MutableLiveData(false)
     val progressLiveData: LiveData<Boolean> get() = _progressLiveData
 
     private val _errorLiveData = MutableLiveData<Throwable>()
     val errorLiveData: LiveData<Throwable> get() = _errorLiveData
 
 
-/*    init {
-        initPopularMovie()
-    }*/
+    init {
+        _topRatedMovie.postValue(emptyList())
+    }
 
 
     fun initPopularMovie() {
-        _progressLiveData.value = true
-        viewModelScope.launch(Dispatchers.IO) {
-            moviesRepository.getTopRatedMovies().collect {
-                _progressLiveData.postValue(false)
-                it.onSuccess { response ->
-                    Log.d("TTT", "onSuccess")
-                    _popularMovie.postValue(response.results!!)
+        if (_progressLiveData.value == false) {
+            _progressLiveData.value = true
+            viewModelScope.launch(Dispatchers.IO) {
+                moviesRepository.getTopRatedMovies(page).collect {
                     _progressLiveData.postValue(false)
-                }
+                    it.onSuccess { response ->
+                        page++
+                        val tempList = _topRatedMovie.value
+                        val generalList = ArrayList<MovieItem>(tempList)
 
-                it.onFailure { throwable ->
-                    _progressLiveData.postValue(false)
-                    _errorLiveData.postValue(throwable)
-                    Log.d("TTT", "$throwable")
+//                        Log.d("TTT", "onSuccess ${response.results}")
+                        generalList.addAll(response.results!!)
+                        _topRatedMovie.postValue(generalList as List<MovieItem>)
+                        _progressLiveData.postValue(false)
+                    }
 
+                    it.onFailure { throwable ->
+                        _progressLiveData.postValue(false)
+                        _errorLiveData.postValue(throwable)
+                        Log.d("TTT", "$throwable")
+
+                    }
                 }
             }
         }
     }
-
 
 }

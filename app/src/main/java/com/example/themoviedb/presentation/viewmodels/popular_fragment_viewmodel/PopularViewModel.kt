@@ -34,7 +34,7 @@ class PopularViewModel @Inject constructor(
     val popularMovie: LiveData<List<MovieItem>> get() = _popularMovie
 
 
-    private val _progressLiveData = MutableLiveData<Boolean>(false)
+    private val _progressLiveData = MutableLiveData(false)
     val progressLiveData: LiveData<Boolean> get() = _progressLiveData
 
     private val _errorLiveData = MutableLiveData<Throwable>()
@@ -56,7 +56,8 @@ class PopularViewModel @Inject constructor(
                         page++
                         val tempList = _popularMovie.value
                         val generalList = ArrayList<MovieItem>(tempList)
-                        Log.d("TTT", "onSuccess")
+
+                        Log.d("TTT", "onSuccess ${response.results}")
                         generalList.addAll(response.results!!)
                         _popularMovie.postValue(generalList as List<MovieItem>)
                         _progressLiveData.postValue(false)

@@ -8,13 +8,12 @@ import kotlinx.coroutines.flow.Flow
  */
 interface MoviesRepository {
 
-//    fun getPopularMovies(): Flow<Result<ResponsePopular>>
 
     fun getPopularMovies(page: Int): Flow<Result<ResponsePopular>>
 
-    fun getTopRatedMovies(): Flow<Result<ResponsePopular>>
+    fun getTopRatedMovies(page: Int): Flow<Result<ResponsePopular>>
 
-    fun getUpcomingMovies(): Flow<Result<ResponseUpcoming>>
+    fun getUpcomingMovies(page: Int): Flow<Result<ResponseUpcoming>>
 
     fun getMovieDetail(id: Int): Flow<Result<ResponseMovieDetails>>
 

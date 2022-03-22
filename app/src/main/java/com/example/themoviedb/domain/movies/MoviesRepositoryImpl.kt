@@ -1,5 +1,6 @@
 package com.example.themoviedb.domain.movies
 
+import android.util.Log
 import androidx.paging.Pager
 import com.example.themoviedb.data.local.LocalStorage
 import com.example.themoviedb.data.remote.apis.MoviesApi
@@ -17,56 +18,42 @@ import javax.inject.Inject
  */
 class MoviesRepositoryImpl @Inject constructor(
     private val moviesApi: MoviesApi,
-    private val storage: LocalStorage
 ) : MoviesRepository {
 
-
-/*    override fun getPopularMovies(): Flow<Result<ResponsePopular>> = flow {
-        try {
-            val respone = moviesApi.getPopularMovies()
-            if (respone.isSuccessful && respone.code() == 200) respone.body()?.let {
-                emit(Result.success(it))
-            } else {
-                emit(Result.failure(HttpException(respone)))
-            }
-        } catch (e: Exception) {
-            emit(Result.failure(e))
-        }
-    }*/
-
     override fun getPopularMovies(page: Int): Flow<Result<ResponsePopular>> = flow {
+
         try {
-            val respone = moviesApi.getPopularMovies(page)
-            if (respone.isSuccessful && respone.code() == 200) respone.body()?.let {
+            val response = moviesApi.getPopularMovies(page)
+            if (response.isSuccessful && response.code() == 200) response.body()?.let {
                 emit(Result.success(it))
             } else {
-                emit(Result.failure(HttpException(respone)))
+                emit(Result.failure(HttpException(response)))
             }
         } catch (e: Exception) {
             emit(Result.failure(e))
         }
     }
 
-    override fun getTopRatedMovies(): Flow<Result<ResponsePopular>> = flow {
+    override fun getTopRatedMovies(page: Int): Flow<Result<ResponsePopular>> = flow {
         try {
-            val respone = moviesApi.getTopRatedMovies()
-            if (respone.isSuccessful && respone.code() == 200) respone.body()?.let {
+            val response = moviesApi.getTopRatedMovies(page)
+            if (response.isSuccessful && response.code() == 200) response.body()?.let {
                 emit(Result.success(it))
             } else {
-                emit(Result.failure(HttpException(respone)))
+                emit(Result.failure(HttpException(response)))
             }
         } catch (e: Exception) {
             emit(Result.failure(e))
         }
     }
 
-    override fun getUpcomingMovies(): Flow<Result<ResponseUpcoming>> = flow {
+    override fun getUpcomingMovies(page: Int): Flow<Result<ResponseUpcoming>> = flow {
         try {
-            val respone = moviesApi.getUpcomingMovies()
-            if (respone.isSuccessful && respone.code() == 200) respone.body()?.let {
+            val response = moviesApi.getUpcomingMovies(page)
+            if (response.isSuccessful && response.code() == 200) response.body()?.let {
                 emit(Result.success(it))
             } else {
-                emit(Result.failure(HttpException(respone)))
+                emit(Result.failure(HttpException(response)))
             }
         } catch (e: Exception) {
             emit(Result.failure(e))

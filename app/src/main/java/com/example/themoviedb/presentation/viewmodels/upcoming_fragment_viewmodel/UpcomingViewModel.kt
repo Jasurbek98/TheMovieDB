@@ -21,39 +21,45 @@ class UpcomingViewModel @Inject constructor(
     private val moviesRepository: MoviesRepository
 ) : ViewModel() {
 
-    private val _popularMovie = MutableLiveData<List<MovieItem>>()
-    val popularMovie: LiveData<List<MovieItem>> get() = _popularMovie
+    private val _upcomingMovie = MutableLiveData<List<MovieItem>>()
+    val upcomingMovie: LiveData<List<MovieItem>> get() = _upcomingMovie
 
-    private val _progressLiveData = MutableLiveData<Boolean>()
+    private val _progressLiveData = MutableLiveData(false)
     val progressLiveData: LiveData<Boolean> get() = _progressLiveData
 
     private val _errorLiveData = MutableLiveData<Throwable>()
     val errorLiveData: LiveData<Throwable> get() = _errorLiveData
 
-/*
+    private var page = 1
+
+
     init {
-        initPopularMovie()
-    }*/
+        _upcomingMovie.postValue(emptyList())
+    }
 
 
-    fun initPopularMovie() {
-        _progressLiveData.value = true
-        viewModelScope.launch(Dispatchers.IO) {
-            moviesRepository.getUpcomingMovies().collect {
-                Log.d("TTTT", "getUpcomingMovies method")
-
-                _progressLiveData.postValue(false)
-                it.onSuccess { response ->
-                    Log.d("TTTT", "onSuccess")
-                    _popularMovie.postValue(response.results!!)
+    fun initUpcomingMovie() {
+        if (_progressLiveData.value == false) {
+            _progressLiveData.value = true
+            viewModelScope.launch(Dispatchers.IO) {
+                moviesRepository.getUpcomingMovies(page).collect {
                     _progressLiveData.postValue(false)
-                }
+                    it.onSuccess { response ->
+                        page++
+                        val tempList = _upcomingMovie.value
+                        val generalList = ArrayList<MovieItem>(tempList)
+                        Log.d("TTT", "onSuccess")
+                        generalList.addAll(response.results!!)
+                        _upcomingMovie.postValue(generalList as List<MovieItem>)
+                        _progressLiveData.postValue(false)
+                    }
 
-                it.onFailure { throwable ->
-                    _progressLiveData.postValue(false)
-                    _errorLiveData.postValue(throwable)
-                    Log.d("TTTT", "$throwable")
+                    it.onFailure { throwable ->
+                        _progressLiveData.postValue(false)
+                        _errorLiveData.postValue(throwable)
+                        Log.d("TTT", "$throwable")
 
+                    }
                 }
             }
         }

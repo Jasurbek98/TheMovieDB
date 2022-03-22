@@ -2,6 +2,7 @@ package com.example.themoviedb.presentation.ui.screens.upcoming_fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -46,7 +47,7 @@ class UpcomingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        upcomingViewModel.initPopularMovie()
+        upcomingViewModel.initUpcomingMovie()
 
         initView()
         loadObservers()
@@ -55,18 +56,17 @@ class UpcomingFragment : Fragment() {
 
     @SuppressLint("FragmentLiveDataObserve")
     private fun loadObservers() {
-        upcomingViewModel.popularMovie.observe(this, popularMovieObserver)
+        upcomingViewModel.upcomingMovie.observe(this, popularMovieObserver)
         upcomingViewModel.errorLiveData.observe(this, errorObserver)
         upcomingViewModel.progressLiveData.observe(this, progressObserver)
 
     }
 
     private val popularMovieObserver = Observer<List<MovieItem>> { movieList ->
+        Log.d("TTT", "$movieList")
+
         if (movieList != null) {
-//            moviePopularAdapter.submitList(movieList)
-            binding.upcomingMovieList.apply {
-                adapter = moviePopularAdapter
-            }
+            moviePopularAdapter.submitList(movieList)
         }
 
 
@@ -88,9 +88,18 @@ class UpcomingFragment : Fragment() {
 
 
     private fun initView() {
+
+        binding.upcomingMovieList.apply {
+            adapter = moviePopularAdapter
+        }
+
         moviePopularAdapter.setOnClickListener {
             storage.movieId = it.id!!
             findNavController().navigate(NavigationFragmentDirections.actionNavigationFragmentToMovieDetailFragment())
+        }
+
+        moviePopularAdapter.fetchNextListener {
+            upcomingViewModel.initUpcomingMovie()
         }
 
     }

@@ -2,6 +2,7 @@ package com.example.themoviedb.presentation.ui.screens.top_rated_fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -55,18 +56,19 @@ class TopRatedFragment : Fragment() {
 
     @SuppressLint("FragmentLiveDataObserve")
     private fun loadObservers() {
-        topRatedViewModel.popularMovie.observe(this, popularMovieObserver)
+        topRatedViewModel.topRatedMovie.observe(this, popularMovieObserver)
         topRatedViewModel.errorLiveData.observe(this, errorObserver)
         topRatedViewModel.progressLiveData.observe(this, progressObserver)
 
     }
 
     private val popularMovieObserver = Observer<List<MovieItem>> { movieList ->
+
+        Log.d("TTT", "$movieList")
+
         if (movieList != null) {
-//            moviePopularAdapter.submitList(movieList)
-            binding.topRatedMovieList.apply {
-                adapter = moviePopularAdapter
-            }
+            moviePopularAdapter.submitList(movieList)
+
         }
 
 
@@ -88,9 +90,18 @@ class TopRatedFragment : Fragment() {
 
 
     private fun initView() {
+
+        binding.topRatedMovieList.apply {
+            adapter = moviePopularAdapter
+        }
+
         moviePopularAdapter.setOnClickListener {
             storage.movieId = it.id!!
             findNavController().navigate(NavigationFragmentDirections.actionNavigationFragmentToMovieDetailFragment())
+        }
+
+        moviePopularAdapter.fetchNextListener {
+            topRatedViewModel.initPopularMovie()
         }
 
     }

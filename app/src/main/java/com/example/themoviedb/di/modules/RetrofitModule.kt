@@ -42,10 +42,6 @@ class RetrofitModule {
     @Singleton
     fun getApi(): String = BASE_URL
 
-    @Provides
-    @Singleton
-    @Named("course_base_url")
-    fun getCourseApi(): String = "http://cbu.uz"
 
     @Provides
     @Singleton

@@ -22,11 +22,15 @@ interface MoviesApi {
 
 
     @GET("movie/top_rated")
-    suspend fun getTopRatedMovies(): Response<ResponsePopular>
+    suspend fun getTopRatedMovies(
+        @Query("page") page: Int
+    ): Response<ResponsePopular>
 
 
     @GET("movie/upcoming")
-    suspend fun getUpcomingMovies(): Response<ResponseUpcoming>
+    suspend fun getUpcomingMovies(
+        @Query("page") page: Int
+    ): Response<ResponseUpcoming>
 
 
     @GET("movie/{id}")
