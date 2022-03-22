@@ -63,9 +63,6 @@ class PopularFragment : Fragment() {
     private val popularMovieObserver = Observer<List<MovieItem>> { movieList ->
         if (movieList != null) {
             moviePopularAdapter.submitList(movieList)
-            binding.movieList.apply {
-                adapter = moviePopularAdapter
-            }
         }
 
 
@@ -87,9 +84,17 @@ class PopularFragment : Fragment() {
 
 
     private fun initView() {
+
+        binding.movieList.apply {
+            adapter = moviePopularAdapter
+        }
         moviePopularAdapter.setOnClickListener {
             storage.movieId = it.id!!
             findNavController().navigate(NavigationFragmentDirections.actionNavigationFragmentToMovieDetailFragment())
+        }
+
+        moviePopularAdapter.fetchNextListener {
+            popularViewModel.initPopularMovie()
         }
 
     }

@@ -63,7 +63,7 @@ class TopRatedFragment : Fragment() {
 
     private val popularMovieObserver = Observer<List<MovieItem>> { movieList ->
         if (movieList != null) {
-            moviePopularAdapter.submitList(movieList)
+//            moviePopularAdapter.submitList(movieList)
             binding.topRatedMovieList.apply {
                 adapter = moviePopularAdapter
             }

@@ -1,9 +1,10 @@
 package com.example.themoviedb.data.remote.apis
 
 import com.example.themoviedb.data.remote.response.*
-import com.example.themoviedb.utils.API_KEY
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 /**
  * Created by Jasurbek Kurganbayev 13/03/2022
@@ -11,8 +12,13 @@ import retrofit2.http.*
 
 interface MoviesApi {
 
+/*    @GET("movie/popular")
+    suspend fun getPopularMovies(): Response<ResponsePopular>*/
+
     @GET("movie/popular")
-    suspend fun getPopularMovies(): Response<ResponsePopular>
+    suspend fun getPopularMovies(
+        @Query("page") page: Int
+    ): Response<ResponsePopular>
 
 
     @GET("movie/top_rated")

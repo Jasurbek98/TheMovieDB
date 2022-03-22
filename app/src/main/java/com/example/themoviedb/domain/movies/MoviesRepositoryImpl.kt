@@ -1,5 +1,6 @@
 package com.example.themoviedb.domain.movies
 
+import androidx.paging.Pager
 import com.example.themoviedb.data.local.LocalStorage
 import com.example.themoviedb.data.remote.apis.MoviesApi
 import com.example.themoviedb.data.remote.response.*
@@ -7,6 +8,7 @@ import com.example.themoviedb.utils.API_KEY
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
+import uz.perfectalgorithm.projects.tezkor.utils.coroutinescope.CoroutinesScope
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -19,9 +21,22 @@ class MoviesRepositoryImpl @Inject constructor(
 ) : MoviesRepository {
 
 
-    override fun getPopularMovies(): Flow<Result<ResponsePopular>> = flow {
+/*    override fun getPopularMovies(): Flow<Result<ResponsePopular>> = flow {
         try {
             val respone = moviesApi.getPopularMovies()
+            if (respone.isSuccessful && respone.code() == 200) respone.body()?.let {
+                emit(Result.success(it))
+            } else {
+                emit(Result.failure(HttpException(respone)))
+            }
+        } catch (e: Exception) {
+            emit(Result.failure(e))
+        }
+    }*/
+
+    override fun getPopularMovies(page: Int): Flow<Result<ResponsePopular>> = flow {
+        try {
+            val respone = moviesApi.getPopularMovies(page)
             if (respone.isSuccessful && respone.code() == 200) respone.body()?.let {
                 emit(Result.success(it))
             } else {

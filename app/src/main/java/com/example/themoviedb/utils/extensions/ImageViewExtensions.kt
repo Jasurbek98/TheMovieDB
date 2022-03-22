@@ -105,12 +105,14 @@ fun ImageView.loadPictureUrl(url: String) {
     if (url.endsWith(".svg", true)) {
         GlideToVectorYou.init()
             .with(App.instance)
-            .setPlaceHolder(R.drawable.ic_user, R.drawable.ic_user)
+//            .setPlaceHolder(R.drawable.ic_user, R.drawable.ic_user)
+            .setPlaceHolder(R.drawable.video_placeholder, R.drawable.video_placeholder)
+
             .load(Uri.parse(BASE_URL + url), this)
     } else
         Glide.with(this)
-            .load(BASE_URL + url)
-            .placeholder(R.drawable.ic_user)
+            .load(BASE_URL_FOR_IMAGE + url)
+            .placeholder(R.drawable.video_placeholder)
             .into(this)
 }
 

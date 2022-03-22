@@ -63,7 +63,7 @@ class UpcomingFragment : Fragment() {
 
     private val popularMovieObserver = Observer<List<MovieItem>> { movieList ->
         if (movieList != null) {
-            moviePopularAdapter.submitList(movieList)
+//            moviePopularAdapter.submitList(movieList)
             binding.upcomingMovieList.apply {
                 adapter = moviePopularAdapter
             }

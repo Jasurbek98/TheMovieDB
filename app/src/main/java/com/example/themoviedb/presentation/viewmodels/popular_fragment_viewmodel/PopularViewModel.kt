@@ -27,38 +27,47 @@ class PopularViewModel @Inject constructor(
     private val moviesRepository: MoviesRepository
 ) : ViewModel() {
 
+    private var page = 1
+
 
     private val _popularMovie = MutableLiveData<List<MovieItem>>()
     val popularMovie: LiveData<List<MovieItem>> get() = _popularMovie
 
-    private val _progressLiveData = MutableLiveData<Boolean>()
+
+    private val _progressLiveData = MutableLiveData<Boolean>(false)
     val progressLiveData: LiveData<Boolean> get() = _progressLiveData
 
     private val _errorLiveData = MutableLiveData<Throwable>()
     val errorLiveData: LiveData<Throwable> get() = _errorLiveData
 
 
-/*    init {
-        initPopularMovie()
-    }*/
+    init {
+        _popularMovie.postValue(emptyList())
+    }
 
 
     fun initPopularMovie() {
-        _progressLiveData.value = true
-        viewModelScope.launch(Dispatchers.IO) {
-            moviesRepository.getPopularMovies().collect {
-                _progressLiveData.postValue(false)
-                it.onSuccess { response ->
-                    Log.d("TTT", "onSuccess")
-                    _popularMovie.postValue(response.results!!)
+        if (_progressLiveData.value == false) {
+            _progressLiveData.value = true
+            viewModelScope.launch(Dispatchers.IO) {
+                moviesRepository.getPopularMovies(page).collect {
                     _progressLiveData.postValue(false)
-                }
+                    it.onSuccess { response ->
+                        page++
+                        val tempList = _popularMovie.value
+                        val generalList = ArrayList<MovieItem>(tempList)
+                        Log.d("TTT", "onSuccess")
+                        generalList.addAll(response.results!!)
+                        _popularMovie.postValue(generalList as List<MovieItem>)
+                        _progressLiveData.postValue(false)
+                    }
 
-                it.onFailure { throwable ->
-                    _progressLiveData.postValue(false)
-                    _errorLiveData.postValue(throwable)
-                    Log.d("TTT", "$throwable")
+                    it.onFailure { throwable ->
+                        _progressLiveData.postValue(false)
+                        _errorLiveData.postValue(throwable)
+                        Log.d("TTT", "$throwable")
 
+                    }
                 }
             }
         }
