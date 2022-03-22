@@ -80,6 +80,7 @@ class MoviePopularAdapter :
                 }
                 movieTitle.text = data.originalTitle
                 movieImage.loadPictureUrl(data.posterPath!!)
+                ///
             }
         }
     }
